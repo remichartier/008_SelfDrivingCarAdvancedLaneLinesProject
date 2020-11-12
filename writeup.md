@@ -3,7 +3,7 @@
 ---
 [//]: # (Image References)
 
-[image1]: ./examples/undistort_output.png "Undistorted"
+[image1]: ./output_images/011_WriteupIllustrations/2020-11-12_00-17-31_UndistortedChessboard.png "Undistorted"
 [image2]: ./test_images/test1.jpg "Road Transformed"
 [image3]: ./examples/binary_combo_example.jpg "Binary Example"
 [image4]: ./examples/warped_straight_lines.jpg "Warp Example"
@@ -35,7 +35,9 @@ Note : All my code is gathered in one unique jupyter notebook file, names "P2_vX
 
 After processing all those camera calibration chessboard images, we get arrays `imgpoints[]` and `objpoints[]` with all the real corners coordinates of the chessboards and their corresponding expected coordinates in a non distorted grid image of the chessboard.
 
-With that, I apply openCV function `cv2.calibrateCamera(objpoints,imgpoints,(xSize,ySize),None,None)` to get the distorsion matrix and parameters which will be used to undistort any images taken with this particular camera. 
+With that : 
+- We apply openCV function `cv2.calibrateCamera(objpoints,imgpoints,(xSize,ySize),None,None)` to get the distorsion matrix and parameters which will be used to undistort any images taken with this particular camera. Cf notebook chapter 'Camera Calibration'
+- Use distorsion matrix and parameters to distort any image taken from this camera (cf `cv2.undistort(img, mtx, dist, None, mtx)`) ´ 
 
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
