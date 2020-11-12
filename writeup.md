@@ -11,9 +11,7 @@
 [image6]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
-## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
-
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+[Rubric](https://review.udacity.com/#!/rubrics/571/view) Points : Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
 
@@ -23,19 +21,17 @@ Note : All my code is gathered in one unique jupyter notebook file, names "P2_vX
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step in "P2_vXX.ipynb" : in paragraph titled "Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.".
-
-It is divided in 2 parts : 
-- Chessboard corner detection
-- Camera Calibration
-
-The way Camera Calibration works is that we define 2 arrays of points, `objpoints[]` for 3d points in real world space, and `imgpoints[]` for 2d points in image plane.
-
-We have several chessboard images 'camera_cal/calibration*.jpg' taken from different directions, and we'll process them by doing the following : For each chessboard image : 
-    - read it.
-    - using `cv2.findChessboardCorners()`, we'll find coordinates of chessboard corners.
-    - I store and append the corners coordinates into array `imgpoints[]` (2D projection of the chessboard image).
-    - I define coordinates of the chessboard corners as it should appear on a non distorted grid image, using `numpy.mgrid()` function. Once done, I append them to `objpoints[]`.
+- The code for this step in "P2_vXX.ipynb" : in paragraph titled "Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.".
+- It is divided in 2 parts : 
+  - Chessboard corner detection
+  - Camera Calibration
+- For Camera Calibration, we define 2 arrays of points, `objpoints[]` for 3d points in real world space, and `imgpoints[]` for 2d points in image plane.
+- We have several chessboard images 'camera_cal/calibration*.jpg' taken from different directions, and we'll process them by doing the following : For each chessboard image : 
+  - Read it.
+  - Using `cv2.findChessboardCorners()`, we'll find coordinates of chessboard corners.
+    - Note : we can visualize identified corners overlayed on source image using openCV function `cv2.drawChessboardCorners(img, (9,6), corners, ret)`
+  - Store and append the corners coordinates into array `imgpoints[]` (2D projection of the chessboard image).
+  - Define ourselves coordinates of the chessboard corners as it should appear on a non distorted grid image, using `numpy.mgrid()` function. Once done, append them to `objpoints[]`.
 
 After processing all those camera calibration chessboard images, we get arrays `imgpoints[]` and `objpoints[]` with all the real corners coordinates of the chessboards and their corresponding expected coordinates in a non distorted grid image of the chessboard.
 
