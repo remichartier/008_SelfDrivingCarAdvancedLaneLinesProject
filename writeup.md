@@ -1,20 +1,6 @@
 ## Advanced Line Project Writeup
 
 ---
-
-**Advanced Lane Finding Project**
-
-The goals / steps of this project are the following:
-
-* Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
-* Apply a distortion correction to raw images.
-* Use color transforms, gradients, etc., to create a thresholded binary image.
-* Apply a perspective transform to rectify binary image ("birds-eye view").
-* Detect lane pixels and fit to find the lane boundary.
-* Determine the curvature of the lane and vehicle position with respect to center.
-* Warp the detected lane boundaries back onto the original image.
-* Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
-
 [//]: # (Image References)
 
 [image1]: ./examples/undistort_output.png "Undistorted"
@@ -37,11 +23,23 @@ Note : All my code is gathered in one unique jupyter notebook file, names "P2_vX
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step in "P2_vXX.ipynb" : in paragraph titled "Compute the camera calibration matrix and distortion coefficients given a set of chessboard images."
+The code for this step in "P2_vXX.ipynb" : in paragraph titled "Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.".
+
 It is divided in 2 parts : 
 - Chessboard corner detection
 - Camera Calibration
 
+The way Camera Calibration works is that we define 2 arrays of points, `objpoints[]` for 3d points in real world space, and `imgpoints[]` for 2d points in image plane.
+
+We have several chessboard images 'camera_cal/calibration*.jpg' taken from different directions, and we'll process them by doing the following : For each chessboard image : 
+    - read it.
+    - using `cv2.findChessboardCorners()`, we'll find coordinates of chessboard corners.
+    - I store and append the corners coordinates into array `imgpoints[]` (2D projection of the chessboard image).
+    - I define coordinates of the chessboard corners as it should appear on a non distorted grid image, using `numpy.mgrid()` function. Once done, I append them to `objpoints[]`.
+
+After processing all those camera calibration chessboard images, we get arrays `imgpoints[]` and `objpoints[]` with all the real corners coordinates of the chessboards and their corresponding expected coordinates in a non distorted grid image of the chessboard.
+
+With that, I apply openCV function `cv2.calibrateCamera(objpoints,imgpoints,(xSize,ySize),None,None)` to get the distorsion matrix and parameters which will be used to undistort any images taken with this particular camera. 
 
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
