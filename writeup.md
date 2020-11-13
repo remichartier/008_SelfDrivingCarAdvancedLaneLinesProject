@@ -9,7 +9,9 @@
 [image4]: ./output_images/011_WriteupIllustrations/2020-11-12_01-01-51_GradientColorBinaryThresholds.png "Gradient/color thresholds"
 [image5]: ./output_images/011_WriteupIllustrations/2020-11-12_01-03-50_GradientColorThresholdGrayBinary.png "Fit Visual"
 [image6]: ./output_images/011_WriteupIllustrations/2020-11-12_22-27-57_PerpectiveTransformedUndistortedImage.png "Perp. Transform test image"
-[image7]: ./output_images/011_WriteupIllustrations/2020-11-12_22-31-06_PerpectTransformBinaryThresholdImage.png "Perp. Transform Binary Threshold image"
+[image7]: ./output_images/011_WriteupIllustrations/2020-11-12_22-31-06_PerpectTransformBinaryThresholdImage.png "Persp. Transform Binary Threshold image"
+[image8]: ./output_images/011_WriteupIllustrations/2020-11-12_22-45-49_PerspectiveTransformOnStraightLines.png "Persp. Transform on straight lines image"
+
 
 [image26]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
@@ -94,43 +96,26 @@ Here are examples of test images, both with gray threshold binary images or orig
 ![alt text][image6]
 ![alt text][image7]
 
+I also checked on another test image with straight lines that the lines are indeed straights after applying a perspective transform, cf below : 
+![alt text][image8]
 
-
-
-
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
-
-```python
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
-```
-
-This resulted in the following source and destination points:
-
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
-
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
-
-![alt text][image4]
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+- Covered in my notebook chapter **"Detect lane pixels and fit to find the lane boundary."** 
+- Function `find_lane_pixels_slidingWindows()` uses the Sliding Window Search to identify left and right lines in an image.
+  - First taking bottom half of gray binary threshold image, doing histogram to identify bottom x coordinates ranges of left and right lines by identifying the histogram peaks.
+  - then dividing image horizontaly in nwindows = 9 parts, take bottom part, identifying position of all non zero pixels, identifying the ones inside virtual rectangle for each left and right lines, and if number of pixels in those 2 left/right rectangles are above a threshold, recenter the rectangles at the mean positions of pixels. Store the non-zero pixels inside those virtual rectangles. 
+  - once bottom part window is done, take next part, and recenter virtual rectangles to mach mean position of pixels on both left/right lines.
+  - And so forth until top part is done with virtual rectangle.
+  - Then use Numpy function `polyfit()` to get a 2nd degree polynomial curve passing through each left/right center of all pixels found. Done in function `fit_polynomial()`
+  - Note : function `fit_polynomial()` is called first and then calls both functions `find_lane_pixels_slidingWindows()` and `polyfit()`
+  
+- Function `find_lane_pixels_fromPriorSearch()` can also be called from function `fit_polynomial()` if there is a way to reduce computing effort from function `find_lane_pixels_slidingWindows()`, by searching lines based on previous images lines, and limiting the search of Lines pixel around cylinders identified around previous image curve.
 
-![alt text][image5]
+
+
+
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
