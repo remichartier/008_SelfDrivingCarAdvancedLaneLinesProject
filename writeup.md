@@ -111,7 +111,7 @@ I also checked on another test image with straight lines that the lines are inde
   - Then use Numpy function `polyfit()` to get a 2nd degree polynomial curve passing through each left/right center of all pixels found. Done in function `fit_polynomial()`
   - Note : function `fit_polynomial()` is called first and then calls both functions `find_lane_pixels_slidingWindows()` and `polyfit()`
   
-- Function `find_lane_pixels_fromPriorSearch()` can also be called from function `fit_polynomial()` if there is a way to reduce computing effort from function `find_lane_pixels_slidingWindows()`, by searching lines based on previous images lines, and limiting the search of Lines pixel around cylinders identified around previous image lines.
+- Function `find_lane_pixels_fromPriorSearch()` can also be called from function `fit_polynomial()` if there is a way to reduce computing effort from function `find_lane_pixels_slidingWindows()`, by searching lines based on previous images lines, and limiting the search of Lines pixel within the cylinders identified around previous image line curves for both left/right lines.
 
 
 
