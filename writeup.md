@@ -11,7 +11,7 @@
 [image6]: ./output_images/011_WriteupIllustrations/2020-11-12_22-27-57_PerpectiveTransformedUndistortedImage.png "Perp. Transform test image"
 [image7]: ./output_images/011_WriteupIllustrations/2020-11-12_22-31-06_PerpectTransformBinaryThresholdImage.png "Persp. Transform Binary Threshold image"
 [image8]: ./output_images/011_WriteupIllustrations/2020-11-12_22-45-49_PerspectiveTransformOnStraightLines.png "Persp. Transform on straight lines image"
-
+[image9]: ./output_images/011_WriteupIllustrations/2020-11-12_23-54-52_LineSearchSlidingWindowExemple.png "Sliding Window Line Search Example"
 
 [image26]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
@@ -110,7 +110,7 @@ I also checked on another test image with straight lines that the lines are inde
   - And so forth until top part is done with virtual rectangle.
   - Then use Numpy function `polyfit()` to get a 2nd degree polynomial curve passing through each left/right center of all pixels found. Done in function `fit_polynomial()`
   - Note : function `fit_polynomial()` is called first and then calls both functions `find_lane_pixels_slidingWindows()` and `polyfit()`
-  
+  ![alt text][image9]
 - Function `find_lane_pixels_fromPriorSearch()` can also be called from function `fit_polynomial()` if there is a way to reduce computing effort from function `find_lane_pixels_slidingWindows()`, by searching lines based on previous images lines, and limiting the search of Lines pixel within the cylinders identified around previous image line curves for both left/right lines.
 
 
