@@ -8,7 +8,10 @@
 [image3]: ./output_images/011_WriteupIllustrations/2020-11-12_00-44-10_UndistortedTestImage.png "Undistorted Test Image"
 [image4]: ./output_images/011_WriteupIllustrations/2020-11-12_01-01-51_GradientColorBinaryThresholds.png "Gradient/color thresholds"
 [image5]: ./output_images/011_WriteupIllustrations/2020-11-12_01-03-50_GradientColorThresholdGrayBinary.png "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
+[image6]: ./output_images/011_WriteupIllustrations/2020-11-12_22-27-57_PerpectiveTransformedUndistortedImage.png "Perp. Transform test image"
+[image7]: ./output_images/011_WriteupIllustrations/2020-11-12_22-31-06_PerpectTransformBinaryThresholdImage.png "Perp. Transform Binary Threshold image"
+
+[image26]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
 [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points : Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -68,7 +71,7 @@ With that :
 - I picked 4 points to pick 2 coordinates on each left and right lines as source (src) coordinates : `[265,678],[1042,678],[582,460],[702,460]` to cover roughtly 3 discontinuating lines
 - I then created destination dst array of coordinates, representing where the destination points should be on a transformed image representing 2 parallel lines : `[[265,ySize-1],[1042,ySize-1],[265,0],[1042,0]]`, ySize being the height of the image.
 - I then use openCV function to define the perspective transform Matrix to transform the source image and points into a "birds-eye view" where 2 lines are parallel like I defined in the destination points. All this is done via function `getPerspectiveTransformMatrix()` like below : 
-`
+```
 def getPerspectiveTransformMatrix():
         
     #define 4 source points src = np.float32([[,],[,],[,],[,]])
@@ -83,7 +86,7 @@ def getPerspectiveTransformMatrix():
     return M, Minv
     
 M, Minv = getPerspectiveTransformMatrix()
-`
+```
 - I then use the matrix M or the inversed matrix Minv to transform between image view to birds-eye view and inversely, using openCV function `cv2.warpPerspective(img,M,img_size,flags=cv2.INTER_LINEAR)` to obtain warped image using matrix M or to come back to original view image using matrix Minv.
 
 Here are examples of test images, both with gray threshold binary images or original images transformed into bird-eyes view : 
