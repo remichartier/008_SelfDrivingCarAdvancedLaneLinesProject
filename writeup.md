@@ -24,7 +24,7 @@ Notes :
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-- The code for this step in "P2_vXX.ipynb" : in paragraph titled "Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.".
+- The code for this step in "P2_vXX.ipynb" : in paragraph titled **"Compute the camera calibration matrix and distortion coefficients given a set of chessboard images"**.
 - It is divided in 2 parts : 
   - Chessboard corner detection
   - Camera Calibration
@@ -50,18 +50,50 @@ With that :
 
 #### 1. Provide an example of a distortion-corrected image.
 
-- Done on my notebook chapter 'Apply a distortion correction to raw images', same undistortion parameters applied to images from `./test_images` folder, one example below : 
+- Done on my notebook chapter **'Apply a distortion correction to raw images'**, same undistortion parameters applied to images from `./test_images` folder, one example below : 
 ![alt text][image3]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-- Covered in my notebook chapter 'Use color transforms, gradients, etc., to create a thresholded binary image'
-- Re-used exemples from the course, using HLS color space on undistorted images from previous step, separating L and S channels, using Gradient/Sobelx on L channel, and color threshold on S channel, those 2 methods allowing to find 2 different sets of pixels, and rearanging them together on a single image, improving detection of borders for challenging images to better identify yellow/white lines in bright/shadow situations, using gray threshold image conversions.
+- Covered in my notebook chapter **'Use color transforms, gradients, etc., to create a thresholded binary image'**
+- Re-used exemples from the course, using HLS color space on undistorted images from previous step, separating L and S channels, using Gradient/Sobelx on L channel, and color threshold on S channel, those 2 methods allowing to find 2 different sets of pixels, and rearranging them together on a single image, improving detection of borders for challenging images to better identify yellow/white lines in bright/shadow situations, using gray threshold image conversions.
 - Exemple of output obtained, in colored threshold image to show with Green/Blue color results of different processes, and final image result in gray threshold binary :
 ![alt text][image4]
 ![alt text][image5]
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+
+- Covered in my notebook chapter **"Apply a perspective transform to rectify binary image ("birds-eye view")"** and in 1st chapter **"Common imports, variables, functions"** 
+- I started by taking one of the straight line images `straight_lines1.jpg`.
+- I picked 4 points to pick 2 coordinates on each left and right lines as source (src) coordinates : `[265,678],[1042,678],[582,460],[702,460]` to cover roughtly 3 discontinuating lines
+- I then created destination dst array of coordinates, representing where the destination points should be on a transformed image representing 2 parallel lines : `[[265,ySize-1],[1042,ySize-1],[265,0],[1042,0]]`, ySize being the height of the image.
+- I then use openCV function to define the perspective transform Matrix to transform the source image and points into a "birds-eye view" where 2 lines are parallel like I defined in the destination points. All this is done via function `getPerspectiveTransformMatrix()` like below : 
+`
+def getPerspectiveTransformMatrix():
+        
+    #define 4 source points src = np.float32([[,],[,],[,],[,]])
+    src=np.float32([[265,678],[1042,678],[582,460],[702,460]])
+    #define 4 destination points src = np.float32([[,],[,],[,],[,]])
+    dst=np.float32([[265,ySize-1],[1042,ySize-1],[265,0],[1042,0]])
+
+    # use cv2.getPerspectiveTransform() to get M, the transform matrix
+    M = cv2.getPerspectiveTransform(src,dst)
+    Minv = cv2.getPerspectiveTransform(dst,src)
+    
+    return M, Minv
+    
+M, Minv = getPerspectiveTransformMatrix()
+`
+- I then use the matrix M or the inversed matrix Minv to transform between image view to birds-eye view and inversely, using openCV function `cv2.warpPerspective(img,M,img_size,flags=cv2.INTER_LINEAR)` to obtain warped image using matrix M or to come back to original view image using matrix Minv.
+
+Here are examples of test images, both with gray threshold binary images or original images transformed into bird-eyes view : 
+
+![alt text][image6]
+![alt text][image7]
+
+
+
+
 
 The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
 
