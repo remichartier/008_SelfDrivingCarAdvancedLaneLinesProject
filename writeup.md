@@ -124,12 +124,13 @@ I also checked on another test image with straight lines that the lines are inde
   ![alt text][image10]
 
 
-
-
-
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+- Radius of Curvature is covered in my notebook chapter **"Determine the curvature of the lane and vehicle position with respect to center. / Measuring Curvature"**
+  - Done via the function `getCurvature()`, calling function `measure_curvature_real()`, all defined in earlier chapter and also used to perform sanity checks on line detections and detect false line detections when curvature deviations are to far away from previous image lines.
+  - Computing curvature radius for both left and right lines defined by 2nd degree polynomial parameters (`left_fit` and `right_fit`, using formulas provided in the course).
+  
+- Position of the vehicule with respect to center, which I label as "deviation", is covered in the same chapter, in function `vehicle_position_vs_center()`. 
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
