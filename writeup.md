@@ -12,6 +12,7 @@
 [image7]: ./output_images/011_WriteupIllustrations/2020-11-12_22-31-06_PerpectTransformBinaryThresholdImage.png "Persp. Transform Binary Threshold image"
 [image8]: ./output_images/011_WriteupIllustrations/2020-11-12_22-45-49_PerspectiveTransformOnStraightLines.png "Persp. Transform on straight lines image"
 [image9]: ./output_images/011_WriteupIllustrations/2020-11-12_23-54-52_LineSearchSlidingWindowExemple.png "Sliding Window Line Search Example"
+[image10]: ./output_images/011_WriteupIllustrations/2020-11-13_23-55-25_priorSeachLineMethod.png "Prior Search Line Method Example"
 
 [image26]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
