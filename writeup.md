@@ -13,6 +13,8 @@
 [image8]: ./output_images/011_WriteupIllustrations/2020-11-12_22-45-49_PerspectiveTransformOnStraightLines.png "Persp. Transform on straight lines image"
 [image9]: ./output_images/011_WriteupIllustrations/2020-11-12_23-54-52_LineSearchSlidingWindowExemple.png "Sliding Window Line Search Example"
 [image10]: ./output_images/011_WriteupIllustrations/2020-11-13_23-55-25_priorSeachLineMethod.png "Prior Search Line Method Example"
+[image11]: ./output_images/009_detectedLaneBoundaries/test4.jpg "Image with Line Boundaries"
+
 
 [image26]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
@@ -153,9 +155,12 @@ left_curv   2663 m, right_curv   1370 m, deviation 0.28 m
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+- Covered in my notebook chapter **"Warp the detected lane boundaries back onto the original image."** 
+- Done for all test images in my image output folder : "./output_images/009_detectedLaneBoundaries"
+- One exemple is below :
 
-![alt text][image6]
+![alt text][image11]
+
 
 ---
 
