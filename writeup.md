@@ -130,7 +130,26 @@ I also checked on another test image with straight lines that the lines are inde
   - Done via the function `getCurvature()`, calling function `measure_curvature_real()`, all defined in earlier chapter and also used to perform sanity checks on line detections and detect false line detections when curvature deviations are to far away from previous image lines.
   - Computing curvature radius for both left and right lines defined by 2nd degree polynomial parameters (`left_fit` and `right_fit`, using formulas provided in the course).
   
-- Position of the vehicule with respect to center, which I label as "deviation", is covered in the same chapter, in function `vehicle_position_vs_center()`. 
+- Position of the vehicule with respect to center, which I label as "deviation", is covered in the same chapter, in function `vehicle_position_vs_center()`.
+  - It first calculate x coordinates for left and right lines at the bottom of the picture, using 2nd degree polynomial equation.
+  - I calculate middle x coordinates between the left and right lines x coordinates.
+  - I calculate also middle x coordinate of the image, knowing the image size.
+  - I then substract the 2 middle x coordinates, which is giving me the deviation of the car compared to the middle of the left/right lines, in pixel values.
+  - I then convert into meters, using the pixel/meter calculations I did (knowing the standard distance between 2 lines - 3.7m, or the discontinued line length (3 m?)
+  - And this is giving me the deviation of the center of the car, compared to the center of the lanes, in meters.
+  
+- Just as an example, my Jupyter notebook computes curvature radius and vehicle deviation for the test images : 
+
+```
+left_curv   3635 m, right_curv   1556 m, deviation 0.36 m
+left_curv   2359 m, right_curv   3232 m, deviation 0.28 m
+left_curv  11250 m, right_curv   4927 m, deviation 0.06 m
+left_curv   2508 m, right_curv  28153 m, deviation 0.11 m
+left_curv   4595 m, right_curv   2616 m, deviation 0.37 m
+left_curv   3549 m, right_curv   3649 m, deviation 0.25 m
+left_curv   5076 m, right_curv   3041 m, deviation 0.11 m
+left_curv   2663 m, right_curv   1370 m, deviation 0.28 m
+```
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
