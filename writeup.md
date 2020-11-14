@@ -105,13 +105,22 @@ I also checked on another test image with straight lines that the lines are inde
 - Covered in my notebook chapter **"Detect lane pixels and fit to find the lane boundary."** 
 - Function `find_lane_pixels_slidingWindows()` uses the Sliding Window Search to identify left and right lines in an image.
   - First taking bottom half of gray binary threshold image, doing histogram to identify bottom x coordinates ranges of left and right lines by identifying the histogram peaks.
-  - Then dividing image horizontaly in nwindows = 9 parts, take bottom part, identifying position of all non zero pixels, identifying the ones inside virtual rectangle for each left and right lines, and if number of pixels in those 2 left/right rectangles are above a threshold, recenter the rectangles at the mean positions of pixels. Store the non-zero pixels inside those virtual rectangles. 
-  - Once bottom part window is done, take next part, and recenter virtual rectangles to mach mean position of pixels on both left/right lines.
+  - Then dividing image horizontaly in nwindows = 9 parts, take bottom part, identifying position of all non zero pixels, identifying the ones inside virtual rectangle windows for each left and right lines, and if number of pixels in those 2 left/right rectangles are above a threshold, recenter the rectangles at the mean positions of pixels. Store the non-zero pixels inside those virtual rectangles. 
+  - Once bottom part window is done, take next part, and slide/recenter virtual rectangles to mach mean position of pixels on both left/right lines.
   - And so forth until top part is done with virtual rectangle.
   - Then use Numpy function `polyfit()` to get a 2nd degree polynomial curve passing through each left/right center of all pixels found. Done in function `fit_polynomial()`
   - Note : function `fit_polynomial()` is called first and then calls both functions `find_lane_pixels_slidingWindows()` and `polyfit()`
+  
   ![alt text][image9]
-- Function `find_lane_pixels_fromPriorSearch()` can also be called from function `fit_polynomial()` if there is a way to reduce computing effort from function `find_lane_pixels_slidingWindows()`, by searching lines based on previous images lines, and limiting the search of Lines pixel within the cylinders identified around previous image line curves for both left/right lines.
+
+- Function `find_lane_pixels_fromPriorSearch()` can also be called from function `fit_polynomial()` as a way to reduce computing effort from function `find_lane_pixels_slidingWindows()`, by searching lines based on previous image lines detected, and limiting the search of line pixels within the polygons identified around previous image line curves for both left/right lines, using 2nd degree polynomial left and right line equation, +/- margin to define polygons with parallel borders to left and right lines. it is done by : 
+  - First having first image gone through `find_lane_pixels_slidingWindows()`.
+  - For subsequent images, taking the lines found from previous image (represented by their 2nd degree polynomial parameters `left_fit` and `right_fit`), Designing a polygon around those lines with borders parallel to those lines (apply + or minus margin to find polygon borders).
+  - Selecting pixels from binary gray warped image which are inside those polygons, and using those pixels to find the best line passing through most of those pixels using `np.poly()` function.
+  - it then gives us 2nd degree polynomial parameters for each left or right lines being centered on points identified for the left and right line for the current image.
+  - Folling image represent the polygon search areas for those pixels with the yellow lines representing the left and right lines found using `np.poly()`
+  
+  ![alt text][image10]
 
 
 
