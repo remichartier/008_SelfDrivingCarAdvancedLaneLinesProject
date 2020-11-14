@@ -15,9 +15,7 @@
 [image10]: ./output_images/011_WriteupIllustrations/2020-11-13_23-55-25_priorSeachLineMethod.png "Prior Search Line Method Example"
 [image11]: ./output_images/009_detectedLaneBoundaries/test4.jpg "Image with Line Boundaries"
 
-
-[image26]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
+[video1]: ./output_videos/project_video.mp4 "Video"
 
 [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points : Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
@@ -168,7 +166,7 @@ left_curv   2663 m, right_curv   1370 m, deviation 0.28 m
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./output_videos/project_video.mp4)
 
 ---
 
@@ -177,3 +175,13 @@ Here's a [link to my video result](./project_video.mp4)
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+
+- I mainly faced integration problems between re-using code I used in previous quizzes and putting it together in a single Jupyter Notebook. That by itself was challenging and cause many bugs I introduced, which lingered for many days before I could realize and found it, and therefore I lost many days because of those issues. Mainly to separate code to display examples, from real code for the pipeline.
+  - Then when trying to switch between all the separate steps (like camera calibration, undistort image, gradients and color threshold, line detections, unwarping images with lines) and building a unique image processing pipeline function, removing any display functionalities, went to be challenging as well.
+  - I still see one more bug on a test image, for which if I apply the steps separately, the line detection is working ok, but if I apply all the steps together via the process_image() pipeline, I see a different result in line detections. I already spotted out it is coming fromt the Sliding Window search mechanism, which on one line does not slide the Window in the good direction, I would need to dig further to find this bug out, but time is running out and I do not want to spend days on it yet. I keep it for later debug.
+
+- I also found out that sizing the polygon to do the perspective transform could impact heavily of line detection quality. Picking points further on the road and lines makes those lines blurry when converting to gray color and applient gradients and color threshold, and therefore could end up having a polynomial line being curved and the top part of the line instead of straight. I fixed this by shortening the polygon I would choose to do the perspective transform.
+
+- Building this pipeline was challenging enough due to integration bugs to reach an acceptable status on the 1st video project.video.mp4, so I did not have time to look at more challenging videos.
+
+- One thing I had to skip because of lack of time is the smoothing part, ie storing the detected line pixels over several images and averaging them with the newly image lines found to smoothen out the line boundaries in the output videos. I keep that for later work when I'll come back on this project. Therefore it would be an item where my pipeline would fail if lines detected variate too much accross images.
