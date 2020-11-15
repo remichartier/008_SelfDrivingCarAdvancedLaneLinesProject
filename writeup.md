@@ -190,4 +190,4 @@ Here I'll talk about the approach I took, what techniques I used, what worked an
   - No real error management implemented yet.
   - No optimization yet of gradient and threshold which could improve line detections in challenging videos/situations.
   - One bug mentioned above to be fixed in the sliding windows search algorithm I have in my pipeline.
-  - No handling yet of 
+  - Not yet challenged against more challenging videos like `challenge_video.mp4` and `harder_challenge_video.mp4`.
