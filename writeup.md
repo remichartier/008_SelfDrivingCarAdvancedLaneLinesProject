@@ -45,8 +45,8 @@ Notes :
 After processing all those camera calibration chessboard images, we get arrays `imgpoints[]` and `objpoints[]` with all the real corners coordinates of the chessboards and their corresponding expected coordinates in a non distorted grid image of the chessboard.
 
 With that : 
-- We apply openCV function `cv2.calibrateCamera(objpoints,imgpoints,(xSize,ySize),None,None)` to get the distorsion matrix and parameters which will be used to undistort any images taken with this particular camera. Cf notebook chapter 'Camera Calibration'
-- Use distorsion matrix and parameters to distort any image taken from this camera (cf `cv2.undistort(img, mtx, dist, None, mtx)`) ´ 
+- We apply openCV function `cv2.calibrateCamera(objpoints,imgpoints,(xSize,ySize),None,None)` to get the distorsion matrix and coefficients which will be used to undistort any images taken with this particular camera. Cf notebook chapter 'Camera Calibration'
+- Use distorsion matrix and coefficients to distort any image taken from this camera (cf `cv2.undistort(img, mtx, dist, None, mtx)`) ´ 
 - cf exemples to illustrate below, on front facing chessboard image and another not front facing chessboard image.
 ![alt text][image1]
 ![alt text][image2]
