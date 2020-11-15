@@ -186,6 +186,8 @@ Here I'll talk about the approach I took, what techniques I used, what worked an
 
 - One thing I had to skip because of lack of time is the smoothing part, ie storing the detected line pixels over several images and averaging them with the newly image lines found to smoothen out the line boundaries in the output videos. I keep that for later work when I'll come back on this project. Therefore it would be an item where my pipeline would fail if lines detected variate too much accross images.
 
+- Another thing I skipped and I would do in future when I have more time on this project would be to reduce number of parameters returned by functions or given in input functions, by gathering all those parameters in classes/objects so that it lighten the code between number of parameters passed into functions and returned by those functions.
+
 - Points of failures in my pipeline would be : 
   - No real error management implemented yet.
   - No optimization yet of gradient and thresholds and color transforms, which I feel could improve line detections in challenging images/videos/situations.
