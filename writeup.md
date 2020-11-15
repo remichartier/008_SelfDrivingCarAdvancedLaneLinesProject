@@ -176,12 +176,18 @@ Here's a [link to my video result](./output_videos/project_video.mp4)
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
 
-- I mainly faced integration problems between re-using code I used in previous quizzes and putting it together in a single Jupyter Notebook. That by itself was challenging and cause many bugs I introduced, which lingered for many days before I could realize and found it, and therefore I lost many days because of those issues. Mainly to separate code to display examples, from real code for the pipeline.
+- I mainly faced integration problems between re-using code I used in previous quizzes and putting it together in a single Jupyter Notebook. That by itself was challenging and cause many bugs I introduced, which lingered for many days before I could realize and found them, and therefore I lost many days because of those issues. Mainly to separate code to display examples, from real code for the pipeline.
   - Then when trying to switch between all the separate steps (like camera calibration, undistort image, gradients and color threshold, line detections, unwarping images with lines) and building a unique image processing pipeline function, removing any display functionalities, went to be challenging as well.
   - I still see one more bug on a test image, for which if I apply the steps separately, the line detection is working ok, but if I apply all the steps together via the process_image() pipeline, I see a different result in line detections. I already spotted out it is coming fromt the Sliding Window search mechanism, which on one line does not slide the Window in the good direction, I would need to dig further to find this bug out, but time is running out and I do not want to spend days on it yet. I keep it for later debug.
 
-- I also found out that sizing the polygon to do the perspective transform could impact heavily of line detection quality. Picking points further on the road and lines makes those lines blurry when converting to gray color and applient gradients and color threshold, and therefore could end up having a polynomial line being curved and the top part of the line instead of straight. I fixed this by shortening the polygon I would choose to do the perspective transform.
+- I also found out that sizing the polygon, selecting the points and the line length to cover in order to do the perspective transform could impact heavily of line detection quality. Picking points further on the road and lanes makes those lanes blurry when converting to gray color and applying gradients and color threshold, and therefore could end up having a polynomial line being curved at the top part of the line instead of straight. I fixed this by shortening the polygon I would choose to do the perspective transform.
 
 - Building this pipeline was challenging enough due to integration bugs to reach an acceptable status on the 1st video project.video.mp4, so I did not have time to look at more challenging videos.
 
 - One thing I had to skip because of lack of time is the smoothing part, ie storing the detected line pixels over several images and averaging them with the newly image lines found to smoothen out the line boundaries in the output videos. I keep that for later work when I'll come back on this project. Therefore it would be an item where my pipeline would fail if lines detected variate too much accross images.
+
+- points of failures in my pipeline would be : 
+  - No real error management implemented yet.
+  - No optimization yet of gradient and threshold which could improve line detections in challenging videos/situations.
+  - One bug mentioned above to be fixed in the sliding windows search algorithm I have in my pipeline.
+  - No handling yet of 
