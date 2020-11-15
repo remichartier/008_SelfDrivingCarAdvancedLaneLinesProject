@@ -13,7 +13,7 @@
 [image8]: ./output_images/011_WriteupIllustrations/2020-11-12_22-45-49_PerspectiveTransformOnStraightLines.png "Persp. Transform on straight lines image"
 [image9]: ./output_images/011_WriteupIllustrations/2020-11-12_23-54-52_LineSearchSlidingWindowExemple.png "Sliding Window Line Search Example"
 [image10]: ./output_images/011_WriteupIllustrations/2020-11-13_23-55-25_priorSeachLineMethod.png "Prior Search Line Method Example"
-[image11]: ./output_images/009_detectedLaneBoundaries/test4.jpg "Image with Line Boundaries"
+[image11]: ./output_images/010_imgBoundariesText/test4.jpg "Image with Line Boundaries"
 
 [video1]: ./output_videos/project_video.mp4 "Video"
 
