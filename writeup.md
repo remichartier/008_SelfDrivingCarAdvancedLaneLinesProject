@@ -30,7 +30,7 @@ Notes :
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-- The code for this step in "P2_vXX.ipynb" : in paragraph titled **"Compute the camera calibration matrix and distortion coefficients given a set of chessboard images"**.
+- The code for this step can be found in "P2_vXX.ipynb" : in paragraph titled **"Compute the camera calibration matrix and distortion coefficients given a set of chessboard images"**.
 - It is divided in 2 parts : 
   - Chessboard corner detection
   - Camera Calibration
