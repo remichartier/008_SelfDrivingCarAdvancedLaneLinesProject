@@ -176,7 +176,7 @@ Here's a [link to my video result](./output_videos/project_video.mp4)
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
 
-- I mainly faced integration problems between re-using code I used in previous quizzes and putting it together in a single Jupyter Notebook. That by itself was challenging and cause many bugs I introduced, which lingered for many days before I could realize and found them, and therefore I lost many days because of those issues. Mainly to separate code to display examples, from real code for the pipeline.
+- I mainly faced integration problems between re-using code I used in previous quizzes and putting it together in a single Jupyter Notebook. That by itself was challenging and caused many bugs I introduced, which lingered for many days before I could realize and find them, and therefore I lost many days because of those issues. For instance doing a Prior Line Search Method with the lines polynomial fit coefficient not set correctly to start with. Many issues as well derived from separating code to display examples, from real code for the image pipeline.
   - Then when trying to switch between all the separate steps (like camera calibration, undistort image, gradients and color threshold, line detections, unwarping images with lines) and building a unique image processing pipeline function, removing any display functionalities, went to be challenging as well.
   - I still see one more bug on a test image, for which if I apply the steps separately, the line detection is working ok, but if I apply all the steps together via the process_image() pipeline, I see a different result in line detections. I already spotted out it is coming fromt the Sliding Window search mechanism, which on one line does not slide the Window in the good direction, I would need to dig further to find this bug out, but time is running out and I do not want to spend days on it yet. I keep it for later debug.
 
@@ -190,4 +190,4 @@ Here I'll talk about the approach I took, what techniques I used, what worked an
   - No real error management implemented yet.
   - No optimization yet of gradient and threshold which could improve line detections in challenging videos/situations.
   - One bug mentioned above to be fixed in the sliding windows search algorithm I have in my pipeline.
-  - Not yet challenged against more challenging videos like `challenge_video.mp4` and `harder_challenge_video.mp4`.
+  - Not yet challenged against more challenging videos like `challenge_video.mp4` and `harder_challenge_video.mp4`, ie no optimization yet about number of franmes without lines detected before triggering a reset and starting again a slinding windows line search.
