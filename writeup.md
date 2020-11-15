@@ -120,8 +120,12 @@ I also checked on another test image with straight lines that the lines are inde
   - Selecting pixels from binary gray warped image which are inside those polygons, and using those pixels to find the best line passing through most of those pixels using `np.poly()` function.
   - it then gives us 2nd degree polynomial parameters for each left or right lines being centered on points identified for the left and right line for the current image.
   - Folling image represent the polygon search areas for those pixels with the yellow lines representing the left and right lines found using `np.poly()`
-  
+
   ![alt text][image10]
+
+- Function `fit_polynomial()` is the main function called to detect the lines.
+  - If no prior lines detected or if too much images line detection failed, it will decide to detect lines via Sliding Window Search ie call function `find_lane_pixels_slidingWindows()`.
+  - If previous image line detections was acceptable, it will call `find_lane_pixels_fromPriorSearch()` to search for lines based on previously found lines from previous image.
 
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
