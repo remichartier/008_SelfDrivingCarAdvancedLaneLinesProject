@@ -56,7 +56,7 @@ With that :
 
 #### 1. Provide an example of a distortion-corrected image.
 
-- Done on my notebook chapter **'Apply a distortion correction to raw images'**, same undistortion parameters applied to images from `./test_images` folder, one example below : 
+- Done on my notebook chapter **'Apply a distortion correction to raw images'**, same undistortion parameters applied to images from `./test_images` folder, via `undist = cv2.undistort(img, mtx, dist, None, mtx)`, one example below : 
 ![alt text][image3]
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
